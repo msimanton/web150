@@ -17,12 +17,14 @@ var total = 0;
 var lowGrade = 100;
 var highGrade = 0;
 var tempArray = [];
+var n;
+
 
 //Parse through the individual data with a for loop
-for (n in individual){
+for (n in individual) {
     
     //Collects the student name
-    dataPerson = individual[n].split("|");
+    var dataPerson = individual[n].split("|");
     var studentName = dataPerson[0];
     
     //Setting up grade as an integer
