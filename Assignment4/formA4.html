@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+</head>
+<body>
+
+<h1>Functions & validation</h1>
+
+<form id="form1" action="#" onsubmit="return validateForm(this);">
+  first name: <input type="text" name="firstname"><br>
+  last name: <input type="text" name="lastname"><br>
+  password: <input type="text" name="password"><br>
+
+  <button>Check</button>
+</form>
+
+<hr><div id="message" style="color:red"></div>
+
+<script>
+
+function validateForm(myForm) {
+    
+    var isValid = false;
+    var firstName = myForm.firstname.value; // get text of firstname field
+    var lastName = myForm.lastname.value;
+    var password = myForm.password.value;
+
+  // use this syntax to update 'message' DIV with appropriate wording
+  //$("#message").html("Button clicked");
+
+  /* Form validation code goes here
+  */
+    
+    if (!firstName) {              
+        $("#message").html("Please enter a first name");
+        return false; 
+    } else if (!lastName) {
+        $("#message").html("Please enter a last name");
+        return false;
+    } else {     
+        if (password.toString().length > 7){
+            
+            if (password.toUpperCase() !== password && password.toLowerCase() !== password) {
+            return true;
+            } else {
+            $("#message").html("Please enter a valid password name");
+            return false;
+            }
+        } else {
+        $("#message").html("Please enter a valid password name");
+        return false;    
+        }
+                
+
+    }
+}
+
+</script>
+
+</body>
+</html>
