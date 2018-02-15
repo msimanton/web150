@@ -25,18 +25,17 @@ function validateForm(myForm) {
     var lastName = myForm.lastname.value;
     var password = myForm.password.value;
 
-  // use this syntax to update 'message' DIV with appropriate wording
-  //$("#message").html("Button clicked");
-
-  /* Form validation code goes here
-  */
-    
+    //validate that first name has entry
     if (!firstName) {              
         $("#message").html("Please enter a first name");
         return false; 
+        
+    //validate that last name has entry
     } else if (!lastName) {
         $("#message").html("Please enter a last name");
         return false;
+        
+    //validate that the password meets criteria
     } else {     
         if (password.toString().length > 7){
             
