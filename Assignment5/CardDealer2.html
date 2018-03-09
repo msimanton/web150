@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<body>
+<button onclick="showHand()">5 Card</button>
+<button onclick="blackJack()">Black Jack</button>
+<h2>Your Hand:</h2>
+
+<ul id="hand">
+    <li id="card"></li>
+</ul>
+    
+<p id="total"></p>
+<script>
+
+//create parts of card variables    
+var cardSuit = ["Hearts", "Diamonds", "Spades", "Clubs"];
+var cardValue = ["Ace",2,3,4,5,6,7,8,9,10,"Jack","Queen","King"];
+var deck = [];  
+var score = 0;
+
+    
+//run through arrays and create a card objects to deck array
+function createDeck() {
+    
+    for (var i = 0; i < cardSuit.length; i++) {
+        for (var j = 0; j < cardValue.length; j++){
+            
+        var card = {};
+            card.value = cardValue[j];
+            card.suit = cardSuit[i];        
+            deck.push(card);
+        }
+    }
+    return deck;
+}
+
+//draw five random cards and display    
+function showHand() {
+
+    createDeck();
+    
+    var cardHand = document.getElementById("card");
+    cardHand.innerHTML = "";
+    var count = 0;
+    
+    while (count < 5) {
+        var card1 = deck[Math.floor(Math.random(deck)*deck.length)];
+        count++;
+        var bullet = document.createElement("li");
+        bullet.innerHTML = card1.value + " of " + card1.suit;
+        cardHand.appendChild(bullet);    
+    }
+}
+
+//create one card at a time, display, and calculate score
+function blackJack() {
+    
+    var cardHand = document.getElementById("card");
+    
+    if (score > 21){
+        score = "Bust";
+        cardHand.innerHTML = "";
+        
+    } else {
+        createDeck();
+        
+        var cardA = deck[Math.floor(Math.random(deck)*deck.length)];        
+        
+        var bullet = document.createElement("li");
+        bullet.innerHTML = cardA.value + " of " + cardA.suit;
+        cardHand.appendChild(bullet);
+
+        if (Number.isInteger(cardA.value)) {
+            score = score + cardA.value;
+        } else if (cardA == "Ace") {
+            if (score <= 10) {
+                score = score + 11;
+            } else {
+                score = score + 1;
+            }
+        } else {
+            score = score + 10;
+        }
+    }
+    
+    var handScore = document.getElementById("score");
+    handScore.innerHTML = "Score: " + score;
+}
+
+
+
+</script>  
+<p id="score">No Score</p>
+</body>
+</html>
