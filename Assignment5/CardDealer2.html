@@ -53,42 +53,50 @@ function showHand() {
 }
 
 //create one card at a time, display, and calculate score
+let bust = false
 function blackJack() {
-    
-    var cardHand = document.getElementById("card");
-    
-    if (score > 21) {
-        score = "Bust";
-        
-    } else {
-        createDeck();
-        
-        var cardA = deck[Math.floor(Math.random(deck)*deck.length)];        
-        
-        var bullet = document.createElement("li");
-        bullet.innerHTML = cardA.value + " of " + cardA.suit;
-        cardHand.appendChild(bullet);
+    // if bust do nothing
+    if (bust) { 
 
-        if (Number.isInteger(cardA.value)) {
-            score = score + cardA.value;
-        } else if (cardA == "Ace") {
-            if (score <= 10) {
-                score = score + 11;
-            } else {
-                score = score + 1;
-            }
-        } else {
-            score = score + 10;
-        }
+        return;
     }
     
+	var cardHand = document.getElementById("card");
+    
+    createDeck();
+
+    var cardA = deck[Math.floor(Math.random(deck)*deck.length)];        
+
+
+    var bullet = document.createElement("li");
+    bullet.innerHTML = cardA.value + " of " + cardA.suit;
+    cardHand.appendChild(bullet);
+    
+
+    if (Number.isInteger(cardA.value)) {
+        score = score + cardA.value;
+    } else if (cardA.value == "Ace") { 
+        if (score <= 10) {
+       	    score += 11;
+        } else {
+     	    score += 1;
+        }
+    } else {
+        score = score + 10;
+    }
+    
+    //  when score is greater than 21 display bust and set bust = true
     var handScore = document.getElementById("score");
-    handScore.innerHTML = "Score: " + score;
+    if (score > 21) {
+        bust = true;
+        handScore.innerHTML = "Score: Bust"
+    } else {
+        handScore.innerHTML = "Score: " + score;
+    }
 }
-
-
 
 </script>  
 <p id="score">No Score</p>
 </body>
 </html>
+
