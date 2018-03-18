@@ -56,14 +56,13 @@
 //       - add a button for each 'house' value
 
         var house = "";
+
         for (var y = 0; y < characters.length; y++) {
             
-            if (house == characters[y].house) {
-                house = characters[y].house;
+            if (house != characters[y].house) {
                 
-            } else {
                 var newButton = div.createElement("button");
-                button.innerHTML(house);
+                button.text(house);
                 buttons.append(house);
             }
         }
