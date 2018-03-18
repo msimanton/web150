@@ -55,22 +55,30 @@
 
 //       - add a button for each 'house' value
 
-        var house = "";
-
-        for (var y = 0; y < characters.length; y++) {
-            
-            if (house != characters[y].house) {
-                
-                var newButton = div.createElement("button");
-                button.text(house);
-                buttons.append(house);
-            }
-        }
-            
-        var houseButton = $('buttons');
+    var houses = [];
+    
         
 
+        for (var j = 0; j < characters.length; j++) {
+            /*$.each(characters[j].house, function(i, el){
+            if($.inArray(el, houses) === -1) houses.push(el);
+            });*/
+            
+            
+            //for (var y = 0; y < houses.length; y++) {
+            //if (house != characters[j].house){   
+            
+                myButton = document.createElement("input");
+                myButton.type = "button";
+                myButton.value = characters[j].house;
+                placeHolder = document.getElementById("buttons");
+                placeHolder.appendChild(myButton);
+            //}
+            //}
+        }
+            
 
+            
             
 //        - add table row for each character
         for (var i = 0; i < characters.length; i++) {
