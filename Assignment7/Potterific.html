@@ -13,6 +13,16 @@
             background-color: red;
         }
         
+        
+        
+        
+        
+        .activebutton {
+            background-color: gray;
+            color: white;
+        }
+
+        
     </style>
 
     <body>
@@ -27,7 +37,7 @@
             </tr>
         </table>
         
-        <button id="reset">reset</button>
+        <button id="reset" value="reset">reset</button>
     </body>
         
         <script>
@@ -53,57 +63,44 @@
             
             
 
-//       - add a button for each 'house' value
+            //add a button for each 'house' value
+                var houses = [];
+                for (var x in characters) {
+                        if (houses.indexOf(characters[x].house) < 0 && characters[x].house !== "") {
+                        houses.push(characters[x].house);
+                        $("#buttons").append("<button>" + characters[x].house + "</button>");
+                    }
+                }
 
-    var houses = [];
-    
-        
 
-        for (var j = 0; j < characters.length; j++) {
-            /*$.each(characters[j].house, function(i, el){
-            if($.inArray(el, houses) === -1) houses.push(el);
-            });*/
-            
-            
-            //for (var y = 0; y < houses.length; y++) {
-            //if (house != characters[j].house){   
-            
-                myButton = document.createElement("input");
-                myButton.type = "button";
-                myButton.value = characters[j].house;
-                placeHolder = document.getElementById("buttons");
-                placeHolder.appendChild(myButton);
-            //}
-            //}
-        }
-            
+
+            //add table row for each character
+                for (var i = 0; i < characters.length; i++) {
+                    $("table").append("<tr><td>" + characters[i].name + "</td><td>" + characters[i].role + "</td><td>" + characters[i].house + "</td><td>" + characters[i].gender + "</td><td>" + characters[i].alignment + "</td></tr>");
+                    
+                    //set visible rows to alternating background color
+                    $("tr:visible").filter("tr:odd").css("background-color", "gold");
+                }
+
 
             
+            //add button filters
+                var buttons = $('button');
+                buttons.on('click', function(e) {
+                    $("tr").show();
+                    var rows = $("td:nth-child(3)").not(":contains("+$(this).text()+")").parent();
+                    rows.hide();
+                    
+                    //add reset functionality
+                    if ($(this).text() == 'reset') {
+                        $("tr").css("background-color", "");
+                        $("tr").show().filter("tr:odd").css("background-color", "gold");
+                    }
+                    $("tr").css("background-color", "");
+                    $("tr:visible").filter("tr:odd").css("background-color", "gold");
+                });    
             
-//        - add table row for each character
-        for (var i = 0; i < characters.length; i++) {
- 
-            $("table").append("<tr><td>" + characters[i].name + "</td><td>" + characters[i].role + "</td><td>" + characters[i].house + "</td><td>" + characters[i].gender + "</td><td>" + characters[i].alignment + "</td></tr>");
-            
- 
-        }
-        
-          
-        
-//        - set visible rows to alternating background color
 
-        $("tr:odd").css("background-color", "gold");
-            
-/*        - add click handler to show only rows matching selected 'house'. Enable buttons to call this handler. 
-        function toggleRows(text){
-            $("tr).removeClass("odd");
-            var rows = $('td:nth-child(3)').not(':contains("' + text+ '")').parent()
-            rows.hide().promise().done(function() {
-                $("tr:visible:odd").addClass("odd")
-            });
-        }
-        - add click handler to reset table 
-        */
         });
         </script>
 </html>
